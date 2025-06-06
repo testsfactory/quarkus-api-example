@@ -1,4 +1,4 @@
-schemaVersion: 2.2.0
+schemaVersion: 2.3.0
 metadata:
   generateName: quarkus-api-example
 attributes:
@@ -6,7 +6,7 @@ attributes:
 components:
   - name: tools
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-latest
+      image: quay.io/devfile/universal-developer-image:ubi9-latest
       env:
         - name: QUARKUS_HTTP_HOST
           value: 0.0.0.0
@@ -17,7 +17,7 @@ components:
           targetPort: 5005
         - exposure: public
           name: list-all-food
-          protocol: http
+          protocol: https
           targetPort: 8080
           path: /food
       volumeMounts:
@@ -103,3 +103,6 @@ commands:
       commandLine: "oc new-app -e POSTGRESQL_USER=user -e POSTGRESQL_PASSWORD=password -e POSTGRESQL_DATABASE=food_db postgresql:10-el7 -n demo"
       group:
         kind: test
+events:
+  postStart:
+    - package
